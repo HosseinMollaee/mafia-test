@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { pool } from "../../lib/db";
+import {
+  getDatabaseEnvStatus,
+  getDbErrorMessage,
+  getPool,
+} from "../../lib/db";
+
+export const dynamic = "force-dynamic";
 
 type DbTestResult = {
   success: boolean;
@@ -7,13 +13,27 @@ type DbTestResult = {
   currentTime: string | null;
   pgVersion: string | null;
   dbName: string | null;
+  envStatus: ReturnType<typeof getDatabaseEnvStatus>;
 };
 
 async function runDbTest(): Promise<DbTestResult> {
+  const envStatus = getDatabaseEnvStatus();
+
+  if (!envStatus.ok) {
+    return {
+      success: false,
+      error: `متغیرهای محیطی در کانتینر یافت نشد: ${envStatus.missing.join("، ")}`,
+      currentTime: null,
+      pgVersion: null,
+      dbName: null,
+      envStatus,
+    };
+  }
+
   let client;
 
   try {
-    client = await pool.connect();
+    client = await getPool().connect();
 
     const timeResult = await client.query<{ current_time: Date }>(
       "SELECT NOW() AS current_time"
@@ -31,21 +51,29 @@ async function runDbTest(): Promise<DbTestResult> {
       currentTime: String(timeResult.rows[0]?.current_time ?? ""),
       pgVersion: versionResult.rows[0]?.pg_version ?? null,
       dbName: dbNameResult.rows[0]?.db_name ?? null,
+      envStatus,
     };
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "خطای ناشناخته در اتصال به دیتابیس";
     return {
       success: false,
-      error: message,
+      error: getDbErrorMessage(err),
       currentTime: null,
       pgVersion: null,
       dbName: null,
+      envStatus,
     };
   } finally {
     client?.release();
   }
 }
+
+const ENV_LABELS: Record<string, string> = {
+  DATABASE_HOST: "هاست",
+  DATABASE_PORT: "پورت",
+  DATABASE_NAME: "نام دیتابیس",
+  DATABASE_USER: "کاربر",
+  DATABASE_PASSWORD: "رمز عبور",
+};
 
 export default async function DbTestPage() {
   const result = await runDbTest();
@@ -110,16 +138,52 @@ export default async function DbTestPage() {
               </dl>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-4">
               <p className="text-lg font-semibold text-red-700 dark:text-red-400">
                 اتصال برقرار نشد
               </p>
               <p className="rounded-xl bg-white/60 p-4 font-mono text-sm leading-relaxed text-red-800 dark:bg-slate-900/50 dark:text-red-300">
                 {result.error}
               </p>
-              <p className="text-sm text-slate-600 dark:text-slate-400">
-                متغیرهای محیطی DATABASE_* را در فایل .env.local یا پنل پارس‌پک
-                بررسی کنید.
+
+              <div className="rounded-xl border border-red-200 bg-white/80 p-4 dark:border-red-800 dark:bg-slate-900/50">
+                <p className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-200">
+                  وضعیت متغیرها در کانتینر (بدون نمایش مقدار):
+                </p>
+                <ul className="space-y-2 text-sm">
+                  {Object.entries(result.envStatus.configured).map(
+                    ([key, isSet]) => (
+                      <li
+                        key={key}
+                        className="flex items-center justify-between gap-2"
+                      >
+                        <span className="font-mono text-slate-600 dark:text-slate-300">
+                          {key}
+                        </span>
+                        <span className="text-slate-500 dark:text-slate-400">
+                          {ENV_LABELS[key] ?? key}
+                        </span>
+                        <span
+                          className={
+                            isSet
+                              ? "font-medium text-emerald-600 dark:text-emerald-400"
+                              : "font-medium text-red-600 dark:text-red-400"
+                          }
+                        >
+                          {isSet ? "✓ تنظیم شده" : "✕ خالی"}
+                        </span>
+                      </li>
+                    )
+                  )}
+                </ul>
+              </div>
+
+              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                اگر همه «تنظیم شده» هستند ولی اتصال برقرار نمی‌شود، مقدار{" "}
+                <span className="font-mono">DATABASE_HOST</span> را از پنل
+                دیتابیس پارس‌پک کپی کنید (معمولاً آدرس داخلی سرویس، نه
+                localhost). بعد از تغییر متغیرها حتماً «ثبت تغییرات» و deploy
+                مجدد بزنید.
               </p>
             </div>
           )}
