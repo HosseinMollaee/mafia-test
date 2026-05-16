@@ -7,7 +7,6 @@ export async function GET() {
 
   return Response.json({
     ok: status.ok,
-    usesConnectionUrl: status.usesConnectionUrl,
     missing: status.missing,
     configured: status.configured,
     nodeEnv: process.env.NODE_ENV ?? null,

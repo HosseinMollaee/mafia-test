@@ -74,7 +74,6 @@ const ENV_LABELS: Record<string, string> = {
   DATABASE_NAME: "نام دیتابیس",
   DATABASE_USER: "کاربر",
   DATABASE_PASSWORD: "رمز عبور",
-  DATABASE_URL: "آدرس اتصال کامل",
 };
 
 export default async function DbTestPage() {

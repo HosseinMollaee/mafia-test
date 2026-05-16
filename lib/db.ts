@@ -22,29 +22,16 @@ export type DatabaseEnvStatus = {
   ok: boolean;
   missing: string[];
   configured: Record<string, boolean>;
-  usesConnectionUrl: boolean;
 };
 
 export function getDatabaseEnvStatus(): DatabaseEnvStatus {
-  const connectionUrl = runtimeEnv("DATABASE_URL");
-
   const configured = {
     DATABASE_HOST: Boolean(runtimeEnv("DATABASE_HOST")),
     DATABASE_PORT: Boolean(runtimeEnv("DATABASE_PORT") ?? "5432"),
     DATABASE_NAME: Boolean(runtimeEnv("DATABASE_NAME")),
     DATABASE_USER: Boolean(runtimeEnv("DATABASE_USER")),
     DATABASE_PASSWORD: Boolean(runtimeEnv("DATABASE_PASSWORD")),
-    DATABASE_URL: Boolean(connectionUrl),
   };
-
-  if (connectionUrl) {
-    return {
-      ok: true,
-      missing: [],
-      configured,
-      usesConnectionUrl: true,
-    };
-  }
 
   const missing = REQUIRED_ENV_KEYS.filter((key) => !configured[key]);
 
@@ -52,16 +39,10 @@ export function getDatabaseEnvStatus(): DatabaseEnvStatus {
     ok: missing.length === 0,
     missing: [...missing],
     configured,
-    usesConnectionUrl: false,
   };
 }
 
 function getPoolConfig(): PoolConfig {
-  const connectionUrl = runtimeEnv("DATABASE_URL");
-  if (connectionUrl) {
-    return { connectionString: connectionUrl, ssl: false };
-  }
-
   const envStatus = getDatabaseEnvStatus();
   if (!envStatus.ok) {
     throw new Error(
