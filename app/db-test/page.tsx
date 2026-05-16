@@ -147,6 +147,28 @@ export default async function DbTestPage() {
                 {result.error}
               </p>
 
+              {result.error?.includes("ECONNREFUSED") && (
+                <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-relaxed text-amber-950 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
+                  <p className="font-semibold">راهنمای ECONNREFUSED</p>
+                  <ul className="mt-2 list-inside list-disc space-y-1">
+                    <li>
+                      در <span className="font-mono">DATABASE_HOST</span> نام
+                      سرویس PostgreSQL بگذارید (مثلاً{" "}
+                      <span className="font-mono">app-postgresql-mafia-test</span>
+                      )، نه IP مثل <span className="font-mono">192.168.x.x</span>.
+                    </li>
+                    <li>هر دو اپ در یک پروژهٔ پارس‌پک باشند.</li>
+                    <li>PostgreSQL در پاور کنترل روشن باشد.</li>
+                  </ul>
+                  {result.envStatus.hostHint?.looksLikePodIp && (
+                    <p className="mt-2 font-medium text-red-700 dark:text-red-300">
+                      host فعلی شبیه IP پاد است ({result.envStatus.hostHint.masked}
+                      ).
+                    </p>
+                  )}
+                </div>
+              )}
+
               <div className="rounded-xl border border-red-200 bg-white/80 p-4 dark:border-red-800 dark:bg-slate-900/50">
                 <p className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-200">
                   وضعیت متغیرها در کانتینر (بدون نمایش مقدار):

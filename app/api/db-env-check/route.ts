@@ -9,6 +9,7 @@ export async function GET() {
     ok: status.ok,
     missing: status.missing,
     configured: status.configured,
+    hostHint: status.hostHint,
     nodeEnv: process.env.NODE_ENV ?? null,
   });
 }

@@ -1,2 +1,2 @@
 /** Bump when deploying so you can verify ParsPack picked up the new build. */
-export const APP_VERSION = "v5-no-database-url";
+export const APP_VERSION = "v6-econnrefused-hint";

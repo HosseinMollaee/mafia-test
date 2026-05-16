@@ -18,11 +18,34 @@ const REQUIRED_ENV_KEYS = [
   "DATABASE_PASSWORD",
 ] as const;
 
+export type DatabaseHostHint = {
+  masked: string;
+  looksLikePodIp: boolean;
+};
+
 export type DatabaseEnvStatus = {
   ok: boolean;
   missing: string[];
   configured: Record<string, boolean>;
+  hostHint: DatabaseHostHint | null;
 };
+
+function maskHost(host: string): string {
+  if (host.length <= 12) return host;
+  return `${host.slice(0, 6)}…${host.slice(-6)}`;
+}
+
+export function getDatabaseHostHint(): DatabaseHostHint | null {
+  const host = runtimeEnv("DATABASE_HOST");
+  if (!host) return null;
+
+  const looksLikePodIp = /^\d{1,3}(\.\d{1,3}){3}$/.test(host);
+
+  return {
+    masked: maskHost(host),
+    looksLikePodIp,
+  };
+}
 
 export function getDatabaseEnvStatus(): DatabaseEnvStatus {
   const configured = {
@@ -39,6 +62,7 @@ export function getDatabaseEnvStatus(): DatabaseEnvStatus {
     ok: missing.length === 0,
     missing: [...missing],
     configured,
+    hostHint: getDatabaseHostHint(),
   };
 }
 
