@@ -16,6 +16,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Change this value in ParsPack build args to bust Docker layer cache when needed.
+ARG CACHE_BUST=v4
+ENV CACHE_BUST=${CACHE_BUST}
+
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 

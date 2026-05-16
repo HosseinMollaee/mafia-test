@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { APP_VERSION } from "../lib/version";
+
+export const dynamic = "force-dynamic";
 
 export default function Home() {
   return (
@@ -12,6 +15,9 @@ export default function Home() {
       >
         تست اتصال به دیتابیس
       </Link>
+      <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
+        نسخهٔ استقرار: {APP_VERSION}
+      </p>
     </main>
   );
 }

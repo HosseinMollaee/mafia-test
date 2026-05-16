@@ -4,6 +4,7 @@ import {
   getDbErrorMessage,
   getPool,
 } from "../../lib/db";
+import { APP_VERSION } from "../../lib/version";
 
 export const dynamic = "force-dynamic";
 
@@ -195,7 +196,10 @@ export default async function DbTestPage() {
           )}
         </div>
 
-        <p className="mt-6 text-center">
+        <p className="mt-6 space-y-2 text-center">
+          <span className="block font-mono text-xs text-slate-500 dark:text-slate-400">
+            نسخهٔ استقرار: {APP_VERSION}
+          </span>
           <Link
             href="/"
             className="text-sm text-slate-600 underline-offset-4 hover:underline dark:text-slate-400"
