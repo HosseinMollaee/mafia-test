@@ -1,9 +1,15 @@
 import "server-only";
-import { Pool } from "pg";
+import { Pool, type PoolConfig } from "pg";
 
 const globalForDb = globalThis as unknown as {
   pool: Pool | undefined;
 };
+
+/** Read env at runtime (avoids Next.js inlining undefined at Docker build time). */
+function runtimeEnv(name: string): string | undefined {
+  const value = process.env[name];
+  return typeof value === "string" && value.trim() ? value.trim() : undefined;
+}
 
 const REQUIRED_ENV_KEYS = [
   "DATABASE_HOST",
@@ -16,16 +22,29 @@ export type DatabaseEnvStatus = {
   ok: boolean;
   missing: string[];
   configured: Record<string, boolean>;
+  usesConnectionUrl: boolean;
 };
 
 export function getDatabaseEnvStatus(): DatabaseEnvStatus {
+  const connectionUrl = runtimeEnv("DATABASE_URL");
+
   const configured = {
-    DATABASE_HOST: Boolean(process.env.DATABASE_HOST?.trim()),
-    DATABASE_PORT: Boolean(process.env.DATABASE_PORT?.trim() || "5432"),
-    DATABASE_NAME: Boolean(process.env.DATABASE_NAME?.trim()),
-    DATABASE_USER: Boolean(process.env.DATABASE_USER?.trim()),
-    DATABASE_PASSWORD: Boolean(process.env.DATABASE_PASSWORD?.trim()),
+    DATABASE_HOST: Boolean(runtimeEnv("DATABASE_HOST")),
+    DATABASE_PORT: Boolean(runtimeEnv("DATABASE_PORT") ?? "5432"),
+    DATABASE_NAME: Boolean(runtimeEnv("DATABASE_NAME")),
+    DATABASE_USER: Boolean(runtimeEnv("DATABASE_USER")),
+    DATABASE_PASSWORD: Boolean(runtimeEnv("DATABASE_PASSWORD")),
+    DATABASE_URL: Boolean(connectionUrl),
   };
+
+  if (connectionUrl) {
+    return {
+      ok: true,
+      missing: [],
+      configured,
+      usesConnectionUrl: true,
+    };
+  }
 
   const missing = REQUIRED_ENV_KEYS.filter((key) => !configured[key]);
 
@@ -33,10 +52,16 @@ export function getDatabaseEnvStatus(): DatabaseEnvStatus {
     ok: missing.length === 0,
     missing: [...missing],
     configured,
+    usesConnectionUrl: false,
   };
 }
 
-function createPool(): Pool {
+function getPoolConfig(): PoolConfig {
+  const connectionUrl = runtimeEnv("DATABASE_URL");
+  if (connectionUrl) {
+    return { connectionString: connectionUrl, ssl: false };
+  }
+
   const envStatus = getDatabaseEnvStatus();
   if (!envStatus.ok) {
     throw new Error(
@@ -44,20 +69,20 @@ function createPool(): Pool {
     );
   }
 
-  return new Pool({
-    host: process.env.DATABASE_HOST,
-    port: Number(process.env.DATABASE_PORT ?? "5432"),
-    database: process.env.DATABASE_NAME,
-    user: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASSWORD,
+  return {
+    host: runtimeEnv("DATABASE_HOST"),
+    port: Number(runtimeEnv("DATABASE_PORT") ?? "5432"),
+    database: runtimeEnv("DATABASE_NAME"),
+    user: runtimeEnv("DATABASE_USER"),
+    password: runtimeEnv("DATABASE_PASSWORD"),
     ssl: false,
-  });
+  };
 }
 
 /** Pool is created on first use so runtime env vars from ParsPack are available. */
 export function getPool(): Pool {
   if (!globalForDb.pool) {
-    globalForDb.pool = createPool();
+    globalForDb.pool = new Pool(getPoolConfig());
   }
   return globalForDb.pool;
 }

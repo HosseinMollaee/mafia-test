@@ -73,6 +73,7 @@ const ENV_LABELS: Record<string, string> = {
   DATABASE_NAME: "نام دیتابیس",
   DATABASE_USER: "کاربر",
   DATABASE_PASSWORD: "رمز عبور",
+  DATABASE_URL: "آدرس اتصال کامل",
 };
 
 export default async function DbTestPage() {
@@ -179,11 +180,16 @@ export default async function DbTestPage() {
               </div>
 
               <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                اگر همه «تنظیم شده» هستند ولی اتصال برقرار نمی‌شود، مقدار{" "}
-                <span className="font-mono">DATABASE_HOST</span> را از پنل
-                دیتابیس پارس‌پک کپی کنید (معمولاً آدرس داخلی سرویس، نه
-                localhost). بعد از تغییر متغیرها حتماً «ثبت تغییرات» و deploy
-                مجدد بزنید.
+                اگر در پنل متغیرها را ست کرده‌اید ولی اینجا «خالی» می‌بینید:
+                از منوی اپ → <strong>پاور کنترل</strong> → راه‌اندازی مجدد،
+                سپس deploy جدید از Git. برای تست سریع:{" "}
+                <Link
+                  href="/api/db-env-check"
+                  className="font-mono underline"
+                  target="_blank"
+                >
+                  /api/db-env-check
+                </Link>
               </p>
             </div>
           )}
