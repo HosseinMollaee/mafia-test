@@ -203,11 +203,74 @@ function EnvDebugPanel({ debug }: { debug: DatabaseEnvDebug }) {
         </p>
       </div>
 
+      <DatabaseUrlPanel validation={debug.urlValidation} />
+
       {debug.warnings.length > 0 && (
         <ul className="space-y-2 border-t border-amber-200 pt-3 text-amber-950 dark:border-amber-800 dark:text-amber-100">
           {debug.warnings.map((warning) => (
             <li key={warning} className="list-inside list-disc">
               {warning}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function DatabaseUrlPanel({
+  validation,
+}: {
+  validation: DatabaseEnvDebug["urlValidation"];
+}) {
+  const statusStyles = {
+    match: "border-emerald-300 bg-emerald-50 text-emerald-900 dark:border-emerald-700 dark:bg-emerald-950/40 dark:text-emerald-100",
+    mismatch:
+      "border-red-300 bg-red-50 text-red-900 dark:border-red-700 dark:bg-red-950/40 dark:text-red-100",
+    not_set:
+      "border-slate-200 bg-slate-50 text-slate-800 dark:border-slate-600 dark:bg-slate-900/40 dark:text-slate-200",
+    incomplete_parts:
+      "border-amber-300 bg-amber-50 text-amber-950 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100",
+    invalid_env_url:
+      "border-red-300 bg-red-50 text-red-900 dark:border-red-700 dark:bg-red-950/40 dark:text-red-100",
+  };
+
+  const statusLabel = {
+    match: "✓ هم‌خوان",
+    mismatch: "✕ ناهم‌خوان",
+    not_set: "— تنظیم نشده",
+    incomplete_parts: "؟ ناقص",
+    invalid_env_url: "✕ نامعتبر",
+  };
+
+  return (
+    <div
+      className={`rounded-lg border p-3 ${statusStyles[validation.status]}`}
+    >
+      <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+        <p className="font-semibold">بررسی DATABASE_URL</p>
+        <span className="text-xs font-medium">{statusLabel[validation.status]}</span>
+      </div>
+      <p className="text-xs leading-relaxed">{validation.message}</p>
+
+      <dl className="mt-3 space-y-2 font-mono text-xs break-all">
+        <div>
+          <dt className="text-slate-500 dark:text-slate-400">DATABASE_URL (env)</dt>
+          <dd>{validation.envUrlMasked ?? "—"}</dd>
+        </div>
+        <div>
+          <dt className="text-slate-500 dark:text-slate-400">
+            URL ساخته‌شده از پارامترها
+          </dt>
+          <dd>{validation.builtUrlMasked}</dd>
+        </div>
+      </dl>
+
+      {validation.details.length > 0 && (
+        <ul className="mt-2 space-y-1 text-xs">
+          {validation.details.map((detail) => (
+            <li key={detail} className="list-inside list-disc">
+              {detail}
             </li>
           ))}
         </ul>

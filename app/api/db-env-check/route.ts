@@ -12,6 +12,7 @@ export async function GET() {
     missing: status.missing,
     configured: status.configured,
     hostHint: status.hostHint,
+    urlValidation: debug.urlValidation,
     debug,
     nodeEnv: process.env.NODE_ENV ?? null,
   });

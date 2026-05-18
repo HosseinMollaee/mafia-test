@@ -1,5 +1,10 @@
 import "server-only";
 import { lookup } from "node:dns/promises";
+import {
+  maskDatabaseUrl,
+  validateDatabaseUrl,
+  type DatabaseUrlValidation,
+} from "./database-url-check";
 
 function runtimeEnv(name: string): string | undefined {
   const value = process.env[name];
@@ -20,6 +25,7 @@ export type DatabaseEnvDebug = {
     user: string;
   };
   warnings: string[];
+  urlValidation: DatabaseUrlValidation;
 };
 
 export async function getDatabaseEnvDebug(): Promise<DatabaseEnvDebug> {
@@ -28,12 +34,15 @@ export async function getDatabaseEnvDebug(): Promise<DatabaseEnvDebug> {
   const database = runtimeEnv("DATABASE_NAME") ?? "";
   const user = runtimeEnv("DATABASE_USER") ?? "";
 
+  const envUrl = runtimeEnv("DATABASE_URL");
+
   const variables: Record<string, string> = {
     DATABASE_HOST: host || "(خالی)",
     DATABASE_PORT: String(port),
     DATABASE_NAME: database || "(خالی)",
     DATABASE_USER: user || "(خالی)",
     DATABASE_PASSWORD: runtimeEnv("DATABASE_PASSWORD") ? "****" : "(خالی)",
+    DATABASE_URL: envUrl ? maskDatabaseUrl(envUrl) : "(تنظیم نشده)",
   };
 
   let addresses: string[] = [];
@@ -73,5 +82,6 @@ export async function getDatabaseEnvDebug(): Promise<DatabaseEnvDebug> {
     },
     connectionTarget: { host, port, database, user },
     warnings,
+    urlValidation: validateDatabaseUrl(),
   };
 }
