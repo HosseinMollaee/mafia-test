@@ -7,9 +7,19 @@ RUN apk add --no-cache libc6-compat openssl
 FROM base AS deps
 WORKDIR /app
 
+# Font Awesome Pro — token only for this build stage (not copied to runner)
+ARG FONTAWESOME_TOKEN
+ENV FONTAWESOME_TOKEN=${FONTAWESOME_TOKEN}
+
 COPY package.json package-lock.json* ./
 COPY prisma ./prisma
+COPY .npmrc.example .npmrc
+RUN if [ -z "$FONTAWESOME_TOKEN" ]; then \
+      echo "ERROR: FONTAWESOME_TOKEN is not set. Add it as a ParsPack build variable." >&2; \
+      exit 1; \
+    fi
 RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
+RUN rm -f .npmrc
 
 # Rebuild the source code only when needed
 FROM base AS builder

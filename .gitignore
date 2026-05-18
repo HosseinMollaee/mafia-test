@@ -34,6 +34,9 @@ yarn-error.log*
 .env
 .env*.local
 
+# npm — local .npmrc may contain a hardcoded Font Awesome token (use .npmrc.example)
+.npmrc
+
 # vercel
 .vercel
 
