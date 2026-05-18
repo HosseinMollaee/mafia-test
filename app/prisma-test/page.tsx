@@ -1,4 +1,8 @@
 import Link from "next/link";
+import {
+  getPrismaMigrationStatus,
+  type PrismaMigrationStatus,
+} from "../../lib/prisma-migration-status";
 import { getPrismaErrorMessage, prisma } from "../../lib/prisma";
 import { APP_VERSION } from "../../lib/version";
 
@@ -17,6 +21,7 @@ type PrismaTestResult = {
   records: TestConnectionRow[];
   totalCount: number;
   createdLabel: string | null;
+  migrationStatus: PrismaMigrationStatus | null;
 };
 
 async function runPrismaTest(): Promise<PrismaTestResult> {
@@ -30,9 +35,11 @@ async function runPrismaTest(): Promise<PrismaTestResult> {
       records: [],
       totalCount: 0,
       createdLabel: null,
+      migrationStatus: null,
     };
   }
 
+  const migrationStatus = await getPrismaMigrationStatus();
   const createdLabel = `تست ${new Date().toISOString()}`;
 
   try {
@@ -55,6 +62,7 @@ async function runPrismaTest(): Promise<PrismaTestResult> {
       records,
       totalCount,
       createdLabel,
+      migrationStatus,
     };
   } catch (err) {
     return {
@@ -64,6 +72,7 @@ async function runPrismaTest(): Promise<PrismaTestResult> {
       records: [],
       totalCount: 0,
       createdLabel: null,
+      migrationStatus,
     };
   }
 }
@@ -161,6 +170,39 @@ export default async function PrismaTestPage() {
                   سرویس) تنظیم کنید. جزئیات در DEPLOY_NOTES.md
                 </p>
               )}
+              {result.migrationStatus?.hint && (
+                <p className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
+                  {result.migrationStatus.hint}
+                </p>
+              )}
+            </div>
+          )}
+
+          {result.migrationStatus && (
+            <div className="mt-4 rounded-xl border border-slate-200 bg-white/80 p-4 text-sm dark:border-slate-700 dark:bg-slate-900/50">
+              <p className="font-semibold text-slate-800 dark:text-slate-100">
+                وضعیت Migration
+              </p>
+              <ul className="mt-2 space-y-1 font-mono text-xs text-slate-600 dark:text-slate-400">
+                <li>
+                  جدول TestConnection:{" "}
+                  {result.migrationStatus.testConnectionTableExists
+                    ? "موجود"
+                    : "وجود ندارد"}
+                </li>
+                <li>
+                  جدول _prisma_migrations:{" "}
+                  {result.migrationStatus.migrationsTableExists
+                    ? "موجود"
+                    : "وجود ندارد"}
+                </li>
+                {result.migrationStatus.appliedMigrations.length > 0 && (
+                  <li>
+                    اعمال‌شده:{" "}
+                    {result.migrationStatus.appliedMigrations.join("، ")}
+                  </li>
+                )}
+              </ul>
             </div>
           )}
 

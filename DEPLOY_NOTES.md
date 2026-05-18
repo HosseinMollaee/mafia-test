@@ -84,12 +84,21 @@ encodeURIComponent("رمز-واقعی-شما")
 
 ## ۳. Migration در زمان استارت کانتینر
 
-در `Dockerfile` و `docker-entrypoint.sh` ترتیب اجرا این است:
+Migration در **دو مسیر** اجرا می‌شود (هر کدام که اول فرصت داشته باشد):
 
-1. `prisma migrate deploy` (اعمال migrationهای داخل `prisma/migrations/`)
-2. `node server.js` (استارت Next.js)
+1. `docker-entrypoint.sh` → `node scripts/run-prisma-migrate.mjs`
+2. **fallback:** `instrumentation.ts` هنگام بالا آمدن Next.js (اگر پارس‌پک `ENTRYPOINT` را نادیده بگیرد و مستقیم `node server.js` بزند)
 
 Migration روی **سرور پارس‌پک** اجرا می‌شود، نه روی لپ‌تاپ. برای توسعهٔ محلی از `migrate dev` استفاده نکنید مگر بدانید چه می‌کنید؛ در استقرار فقط `migrate deploy` استفاده می‌شود.
+
+### خطای «TestConnection does not exist»
+
+یعنی `migrate deploy` هنوز روی دیتابیس فعلی اجرا نشده:
+
+1. یک **deploy جدید** بزنید (بعد از push آخرین کد).
+2. در لاگ کانتینer دنبال `Prisma migration completed successfully` بگردید.
+3. صفحهٔ `/prisma-test` بخش «وضعیت Migration» را ببینید — اگر `_prisma_migrations` هم «وجود ندارد» است، migration اصلاً اجرا نشده.
+4. اگر `_prisma_migrations` هست ولی `TestConnection` نیست، احتمالاً `DATABASE_URL` به دیتابیس دیگری اشاره می‌کند.
 
 جدول جدید: `TestConnection` — به جداول و داده‌های قبلی دست نمی‌زند.
 
