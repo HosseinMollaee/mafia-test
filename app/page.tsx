@@ -29,6 +29,12 @@ export default function Home() {
           تست فضای ابری
         </Link>
         <Link
+          href="/dexie-test"
+          className="rounded-lg bg-slate-800 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+        >
+          تست منطق آفلاین
+        </Link>
+        <Link
           href="/sms-test"
           className="rounded-lg bg-slate-800 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
         >
