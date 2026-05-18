@@ -11,8 +11,14 @@ export async function GET() {
       process.env.S3_BUCKET?.trim()
   );
 
+  const bucketOk = debug.bucket.headBucket.ok;
+
   return Response.json({
-    ok: configured && !debug.dns.error && debug.dns.addresses.length > 0,
+    ok:
+      configured &&
+      !debug.dns.error &&
+      debug.dns.addresses.length > 0 &&
+      bucketOk,
     configured,
     debug,
   });

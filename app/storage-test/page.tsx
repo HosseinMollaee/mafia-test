@@ -14,7 +14,17 @@ type StorageEnvCheck = {
   configured: boolean;
   debug: {
     variables: Record<string, string>;
-    endpoint: { raw: string; normalized: string; hostname: string };
+    endpoint: {
+      raw: string;
+      normalized: string;
+      hostname: string;
+      bucketHint: string | null;
+    };
+    bucket: {
+      configured: string;
+      matchesEndpointHint: boolean | null;
+      headBucket: { ok: boolean; error: string | null };
+    };
     dns: { hostname: string; addresses: string[]; error: string | null };
     warnings: string[];
   };
@@ -257,6 +267,32 @@ function StorageDebugPanel({ check }: { check: StorageEnvCheck }) {
         <p className="mt-2 font-mono text-xs text-slate-600 dark:text-slate-400">
           endpoint نرمال‌شده: {debug.endpoint.normalized}
         </p>
+        {debug.endpoint.bucketHint && (
+          <p className="mt-2 font-mono text-xs text-slate-600 dark:text-slate-400">
+            نام باکت پیشنهادی (از endpoint): {debug.endpoint.bucketHint}
+          </p>
+        )}
+      </div>
+      <div className="mt-3 border-t border-slate-200 pt-3 dark:border-slate-700">
+        <p className="mb-1 font-medium text-slate-700 dark:text-slate-300">
+          دسترسی به باکت (HeadBucket)
+        </p>
+        {debug.bucket.headBucket.ok ? (
+          <p className="text-xs text-emerald-700 dark:text-emerald-400">
+            باکت «{debug.bucket.configured}» در دسترس است
+          </p>
+        ) : debug.bucket.headBucket.error ? (
+          <p className="font-mono text-xs text-red-600">
+            {debug.bucket.headBucket.error}
+          </p>
+        ) : (
+          <p className="text-xs text-slate-500">بررسی نشده</p>
+        )}
+        {debug.bucket.matchesEndpointHint === false && (
+          <p className="mt-2 text-xs text-amber-800 dark:text-amber-200">
+            S3_BUCKET با شناسه endpoint هم‌خوان نیست.
+          </p>
+        )}
       </div>
       {debug.warnings.length > 0 && (
         <ul className="mt-3 space-y-2 border-t border-amber-200 pt-3 text-amber-950 dark:border-amber-800 dark:text-amber-100">

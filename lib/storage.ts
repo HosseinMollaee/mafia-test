@@ -1,9 +1,11 @@
 import "server-only";
 import {
   GetObjectCommand,
+  ObjectCannedACL,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
+import { getParsPackBucketHintFromEndpoint } from "./storage-config";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { setDefaultResultOrder } from "node:dns";
 
@@ -57,6 +59,21 @@ function formatStorageError(err: unknown, action: string): Error {
     );
   }
 
+  if (/access denied/i.test(raw)) {
+    const endpoint = process.env.S3_ENDPOINT?.trim() ?? "";
+    const bucket = process.env.S3_BUCKET?.trim() ?? "";
+    const hint = endpoint ? getParsPackBucketHintFromEndpoint(endpoint) : null;
+    let extra =
+      " کلید دسترسی (Access/Secret) را از همان فضای ابری در پنل کپی کنید.";
+    if (hint && bucket && bucket !== hint) {
+      extra =
+        ` S3_BUCKET احتمالاً باید «${hint}» باشد (نه «${bucket}») — در مستندات پارس‌پک bucketName همان شناسهٔ endpoint است.`;
+    } else if (hint) {
+      extra = ` نام باکت S3 باید «${hint}» باشد.${extra}`;
+    }
+    return new Error(`${action}: دسترسی رد شد (Access Denied).${extra}`);
+  }
+
   return new Error(`${action}: ${raw}`);
 }
 
@@ -68,7 +85,7 @@ function normalizeEndpoint(raw: string): string {
   return `https://${trimmed}`;
 }
 
-function getS3Client(): S3Client {
+export function getS3Client(): S3Client {
   const endpoint = process.env.S3_ENDPOINT;
   const accessKeyId = process.env.S3_ACCESS_KEY;
   const secretAccessKey = process.env.S3_SECRET_KEY;
@@ -114,6 +131,7 @@ export async function uploadFile(
           Key: fileName,
           Body: buffer,
           ContentType: contentType,
+          ACL: ObjectCannedACL.private,
         })
       )
     );
