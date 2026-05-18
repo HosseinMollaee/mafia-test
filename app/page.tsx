@@ -17,6 +17,12 @@ export default function Home() {
           تست اتصال به دیتابیس
         </Link>
         <Link
+          href="/prisma-test"
+          className="rounded-lg bg-slate-800 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+        >
+          تست Prisma و Migration
+        </Link>
+        <Link
           href="/storage-test"
           className="rounded-lg bg-slate-800 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
         >
