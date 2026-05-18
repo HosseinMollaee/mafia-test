@@ -9,6 +9,17 @@ type UploadState =
   | { status: "success"; url: string; fileName: string }
   | { status: "error"; message: string };
 
+type StorageEnvCheck = {
+  ok: boolean;
+  configured: boolean;
+  debug: {
+    variables: Record<string, string>;
+    endpoint: { raw: string; normalized: string; hostname: string };
+    dns: { hostname: string; addresses: string[]; error: string | null };
+    warnings: string[];
+  };
+};
+
 export default function StorageTestPage() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -16,6 +27,14 @@ export default function StorageTestPage() {
     status: "idle",
   });
   const previewRef = useRef<string | null>(null);
+  const [envCheck, setEnvCheck] = useState<StorageEnvCheck | null>(null);
+
+  useEffect(() => {
+    fetch("/api/storage-env-check")
+      .then((res) => res.json())
+      .then((data: StorageEnvCheck) => setEnvCheck(data))
+      .catch(() => setEnvCheck(null));
+  }, []);
 
   useEffect(() => {
     if (!selectedFile) {
@@ -191,6 +210,8 @@ export default function StorageTestPage() {
           )}
         </div>
 
+        {envCheck && <StorageDebugPanel check={envCheck} />}
+
         <p className="mt-6 text-center">
           <Link
             href="/"
@@ -201,5 +222,51 @@ export default function StorageTestPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+function StorageDebugPanel({ check }: { check: StorageEnvCheck }) {
+  const { debug } = check;
+
+  return (
+    <div className="mt-6 rounded-xl border border-slate-200 bg-white/80 p-4 text-sm dark:border-slate-700 dark:bg-slate-900/50">
+      <p className="mb-2 font-semibold text-slate-800 dark:text-slate-100">
+        تشخیص DNS در سرور (رمز مخفی)
+      </p>
+      <dl className="space-y-2 font-mono text-xs break-all">
+        {Object.entries(debug.variables).map(([key, value]) => (
+          <div key={key} className="grid grid-cols-[7rem_1fr] gap-2">
+            <dt className="text-slate-500">{key}</dt>
+            <dd className="text-slate-800 dark:text-slate-200">{value}</dd>
+          </div>
+        ))}
+      </dl>
+      <div className="mt-3 border-t border-slate-200 pt-3 dark:border-slate-700">
+        <p className="mb-1 font-medium text-slate-700 dark:text-slate-300">
+          نتیجهٔ DNS برای endpoint
+        </p>
+        {debug.dns.error ? (
+          <p className="font-mono text-xs text-red-600">{debug.dns.error}</p>
+        ) : debug.dns.addresses.length > 0 ? (
+          <p className="font-mono text-xs text-slate-700 dark:text-slate-200">
+            {debug.dns.hostname} → {debug.dns.addresses.join(", ")}
+          </p>
+        ) : (
+          <p className="text-xs text-slate-500">بدون نتیجه</p>
+        )}
+        <p className="mt-2 font-mono text-xs text-slate-600 dark:text-slate-400">
+          endpoint نرمال‌شده: {debug.endpoint.normalized}
+        </p>
+      </div>
+      {debug.warnings.length > 0 && (
+        <ul className="mt-3 space-y-2 border-t border-amber-200 pt-3 text-amber-950 dark:border-amber-800 dark:text-amber-100">
+          {debug.warnings.map((warning) => (
+            <li key={warning} className="list-inside list-disc text-xs">
+              {warning}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }

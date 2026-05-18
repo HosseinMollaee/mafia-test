@@ -5,10 +5,60 @@ import {
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { setDefaultResultOrder } from "node:dns";
 
 // اگر پارس‌پک خطای SignatureDoesNotMatch داد، معمولاً به‌خاطر endpoint نادرست
 // یا forcePathStyle: false است — برای S3 سازگار (غیر آمازون) forcePathStyle باید true باشد
 // و endpoint باید با https:// شروع شود.
+//
+// EAI_AGAIN = شکست موقت DNS برای host در S3_ENDPOINT (مثلاً c397086.parspack.net).
+// endpoint را از پنل کپی کنید؛ نام باکت را در S3_BUCKET بگذارید، نه در URL.
+setDefaultResultOrder("ipv4first");
+
+const TRANSIENT_NETWORK = /EAI_AGAIN|ENOTFOUND|ETIMEDOUT|ECONNRESET|ECONNREFUSED/i;
+
+async function withTransientRetry<T>(fn: () => Promise<T>): Promise<T> {
+  const delays = [0, 400, 1200];
+  let lastError: unknown;
+
+  for (const delay of delays) {
+    if (delay > 0) {
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+    try {
+      return await fn();
+    } catch (err) {
+      lastError = err;
+      const message = err instanceof Error ? err.message : String(err);
+      if (!TRANSIENT_NETWORK.test(message)) {
+        throw err;
+      }
+    }
+  }
+
+  throw lastError;
+}
+
+function formatStorageError(err: unknown, action: string): Error {
+  const raw = err instanceof Error ? err.message : String(err);
+
+  if (raw.includes("EAI_AGAIN")) {
+    const host = process.env.S3_ENDPOINT?.trim() ?? "S3_ENDPOINT";
+    return new Error(
+      `${action}: نام سرور فضای ابری resolve نشد (DNS موقت: EAI_AGAIN). ` +
+        `مقدار S3_ENDPOINT را بررسی کنید (مثلاً https://c397086.parspack.net بدون مسیر باکت). ` +
+        `اگر روی پارس‌پک deploy کرده‌اید، یک‌بار redeploy کنید یا چند ثانیه بعد دوباره آپلود کنید. host: ${host}`
+    );
+  }
+
+  if (raw.includes("ENOTFOUND")) {
+    return new Error(
+      `${action}: آدرس S3_ENDPOINT اشتباه است یا در DNS وجود ندارد. مقدار را از پنل فضای ابری کپی کنید.`
+    );
+  }
+
+  return new Error(`${action}: ${raw}`);
+}
 
 function normalizeEndpoint(raw: string): string {
   const trimmed = raw.trim();
@@ -57,18 +107,18 @@ export async function uploadFile(
     const client = getS3Client();
     const bucket = getBucket();
 
-    await client.send(
-      new PutObjectCommand({
-        Bucket: bucket,
-        Key: fileName,
-        Body: buffer,
-        ContentType: contentType,
-      })
+    await withTransientRetry(() =>
+      client.send(
+        new PutObjectCommand({
+          Bucket: bucket,
+          Key: fileName,
+          Body: buffer,
+          ContentType: contentType,
+        })
+      )
     );
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "خطای ناشناخته در آپلود";
-    throw new Error(`آپلود فایل ناموفق بود: ${message}`);
+    throw formatStorageError(err, "آپلود فایل ناموفق بود");
   }
 }
 
@@ -82,10 +132,10 @@ export async function getFileUrl(fileName: string): Promise<string> {
       Key: fileName,
     });
 
-    return await getSignedUrl(client, command, { expiresIn: 3600 });
+    return await withTransientRetry(() =>
+      getSignedUrl(client, command, { expiresIn: 3600 })
+    );
   } catch (err) {
-    const message =
-      err instanceof Error ? err.message : "خطای ناشناخته در ساخت آدرس";
-    throw new Error(`ساخت آدرس موقت ناموفق بود: ${message}`);
+    throw formatStorageError(err, "ساخت آدرس موقت ناموفق بود");
   }
 }
