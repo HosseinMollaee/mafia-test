@@ -84,12 +84,27 @@ function getPoolConfig(): PoolConfig {
   };
 }
 
+export function getConnectionTarget() {
+  return {
+    host: runtimeEnv("DATABASE_HOST") ?? "",
+    port: Number(runtimeEnv("DATABASE_PORT") ?? "5432"),
+    database: runtimeEnv("DATABASE_NAME") ?? "",
+    user: runtimeEnv("DATABASE_USER") ?? "",
+  };
+}
+
 /** Pool is created on first use so runtime env vars from ParsPack are available. */
 export function getPool(): Pool {
   if (!globalForDb.pool) {
     globalForDb.pool = new Pool(getPoolConfig());
   }
   return globalForDb.pool;
+}
+
+/** After changing env vars in ParsPack, restart the app so a new pool is created. */
+export function resetPool(): void {
+  void globalForDb.pool?.end();
+  globalForDb.pool = undefined;
 }
 
 export function getDbErrorMessage(err: unknown): string {

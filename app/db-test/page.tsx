@@ -3,7 +3,9 @@ import {
   getDatabaseEnvStatus,
   getDbErrorMessage,
   getPool,
+  resetPool,
 } from "../../lib/db";
+import { getDatabaseEnvDebug, type DatabaseEnvDebug } from "../../lib/db-debug";
 import { APP_VERSION } from "../../lib/version";
 
 export const dynamic = "force-dynamic";
@@ -15,10 +17,13 @@ type DbTestResult = {
   pgVersion: string | null;
   dbName: string | null;
   envStatus: ReturnType<typeof getDatabaseEnvStatus>;
+  envDebug: DatabaseEnvDebug;
 };
 
 async function runDbTest(): Promise<DbTestResult> {
+  resetPool();
   const envStatus = getDatabaseEnvStatus();
+  const envDebug = await getDatabaseEnvDebug();
 
   if (!envStatus.ok) {
     return {
@@ -28,6 +33,7 @@ async function runDbTest(): Promise<DbTestResult> {
       pgVersion: null,
       dbName: null,
       envStatus,
+      envDebug,
     };
   }
 
@@ -53,6 +59,7 @@ async function runDbTest(): Promise<DbTestResult> {
       pgVersion: versionResult.rows[0]?.pg_version ?? null,
       dbName: dbNameResult.rows[0]?.db_name ?? null,
       envStatus,
+      envDebug,
     };
   } catch (err) {
     return {
@@ -62,26 +69,19 @@ async function runDbTest(): Promise<DbTestResult> {
       pgVersion: null,
       dbName: null,
       envStatus,
+      envDebug,
     };
   } finally {
     client?.release();
   }
 }
 
-const ENV_LABELS: Record<string, string> = {
-  DATABASE_HOST: "هاست",
-  DATABASE_PORT: "پورت",
-  DATABASE_NAME: "نام دیتابیس",
-  DATABASE_USER: "کاربر",
-  DATABASE_PASSWORD: "رمز عبور",
-};
-
 export default async function DbTestPage() {
   const result = await runDbTest();
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 to-slate-200 px-4 py-12 dark:from-slate-900 dark:to-slate-800">
-      <div className="w-full max-w-lg">
+      <div className="w-full max-w-xl">
         <div
           className={`rounded-2xl border-2 p-8 shadow-lg ${
             result.success
@@ -146,75 +146,10 @@ export default async function DbTestPage() {
               <p className="rounded-xl bg-white/60 p-4 font-mono text-sm leading-relaxed text-red-800 dark:bg-slate-900/50 dark:text-red-300">
                 {result.error}
               </p>
-
-              {result.error?.includes("ECONNREFUSED") && (
-                <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm leading-relaxed text-amber-950 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100">
-                  <p className="font-semibold">راهنمای ECONNREFUSED</p>
-                  <ul className="mt-2 list-inside list-disc space-y-1">
-                    <li>
-                      در <span className="font-mono">DATABASE_HOST</span> نام
-                      سرویس PostgreSQL بگذارید (مثلاً{" "}
-                      <span className="font-mono">app-postgresql-mafia-test</span>
-                      )، نه IP مثل <span className="font-mono">192.168.x.x</span>.
-                    </li>
-                    <li>هر دو اپ در یک پروژهٔ پارس‌پک باشند.</li>
-                    <li>PostgreSQL در پاور کنترل روشن باشد.</li>
-                  </ul>
-                  {result.envStatus.hostHint?.looksLikePodIp && (
-                    <p className="mt-2 font-medium text-red-700 dark:text-red-300">
-                      host فعلی شبیه IP پاد است ({result.envStatus.hostHint.masked}
-                      ).
-                    </p>
-                  )}
-                </div>
-              )}
-
-              <div className="rounded-xl border border-red-200 bg-white/80 p-4 dark:border-red-800 dark:bg-slate-900/50">
-                <p className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-200">
-                  وضعیت متغیرها در کانتینر (بدون نمایش مقدار):
-                </p>
-                <ul className="space-y-2 text-sm">
-                  {Object.entries(result.envStatus.configured).map(
-                    ([key, isSet]) => (
-                      <li
-                        key={key}
-                        className="flex items-center justify-between gap-2"
-                      >
-                        <span className="font-mono text-slate-600 dark:text-slate-300">
-                          {key}
-                        </span>
-                        <span className="text-slate-500 dark:text-slate-400">
-                          {ENV_LABELS[key] ?? key}
-                        </span>
-                        <span
-                          className={
-                            isSet
-                              ? "font-medium text-emerald-600 dark:text-emerald-400"
-                              : "font-medium text-red-600 dark:text-red-400"
-                          }
-                        >
-                          {isSet ? "✓ تنظیم شده" : "✕ خالی"}
-                        </span>
-                      </li>
-                    )
-                  )}
-                </ul>
-              </div>
-
-              <p className="text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                اگر در پنل متغیرها را ست کرده‌اید ولی اینجا «خالی» می‌بینید:
-                از منوی اپ → <strong>پاور کنترل</strong> → راه‌اندازی مجدد،
-                سپس deploy جدید از Git. برای تست سریع:{" "}
-                <Link
-                  href="/api/db-env-check"
-                  className="font-mono underline"
-                  target="_blank"
-                >
-                  /api/db-env-check
-                </Link>
-              </p>
             </div>
           )}
+
+          <EnvDebugPanel debug={result.envDebug} />
         </div>
 
         <p className="mt-6 space-y-2 text-center">
@@ -230,5 +165,53 @@ export default async function DbTestPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+function EnvDebugPanel({ debug }: { debug: DatabaseEnvDebug }) {
+  return (
+    <div className="mt-4 space-y-3 rounded-xl border border-slate-200 bg-white/80 p-4 text-sm dark:border-slate-700 dark:bg-slate-900/50">
+      <p className="font-semibold text-slate-800 dark:text-slate-100">
+        مقادیر واقعی در کانتینر (رمز مخفی)
+      </p>
+      <dl className="space-y-2 font-mono text-xs break-all">
+        {Object.entries(debug.variables).map(([key, value]) => (
+          <div key={key} className="grid grid-cols-[9rem_1fr] gap-2">
+            <dt className="text-slate-500">{key}</dt>
+            <dd className="text-slate-800 dark:text-slate-200">{value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div className="border-t border-slate-200 pt-3 dark:border-slate-700">
+        <p className="mb-1 font-medium text-slate-700 dark:text-slate-300">
+          نتیجهٔ DNS برای host
+        </p>
+        {debug.dns.error ? (
+          <p className="font-mono text-xs text-red-600">{debug.dns.error}</p>
+        ) : debug.dns.addresses.length > 0 ? (
+          <p className="font-mono text-xs text-slate-700 dark:text-slate-200">
+            {debug.dns.hostname} → {debug.dns.addresses.join(", ")}
+          </p>
+        ) : (
+          <p className="text-xs text-slate-500">بدون نتیجه</p>
+        )}
+        <p className="mt-2 font-mono text-xs text-slate-600 dark:text-slate-400">
+          هدف اتصال: {debug.connectionTarget.host}:
+          {debug.connectionTarget.port} / {debug.connectionTarget.database} (
+          {debug.connectionTarget.user})
+        </p>
+      </div>
+
+      {debug.warnings.length > 0 && (
+        <ul className="space-y-2 border-t border-amber-200 pt-3 text-amber-950 dark:border-amber-800 dark:text-amber-100">
+          {debug.warnings.map((warning) => (
+            <li key={warning} className="list-inside list-disc">
+              {warning}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
