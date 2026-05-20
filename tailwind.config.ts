@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
   content: [
@@ -7,7 +8,19 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        // Use licensed Persian fonts as the global default.
+        // Icon fonts (if any) should set their own font-family and won't be affected.
+        sans: [
+          "IRANYekanX",
+          "IRANSansDN",
+          ...defaultTheme.fontFamily.sans,
+        ],
+        iransansdn: ["IRANSansDN", "IRANYekanX", ...defaultTheme.fontFamily.sans],
+        mono: ["IRANYekanX", "IRANSansDN"],
+      },
+    },
   },
   plugins: [],
 };

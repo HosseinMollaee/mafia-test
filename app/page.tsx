@@ -46,6 +46,12 @@ export default function Home() {
         >
           تست Font Awesome Pro
         </Link>
+        <Link
+          href="/fonts-test"
+          className="rounded-lg bg-slate-800 px-6 py-3 text-sm font-medium text-white transition hover:bg-slate-700 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-200"
+        >
+          تست فونت‌های فارسی
+        </Link>
       </div>
       <p className="font-mono text-xs text-slate-500 dark:text-slate-400">
         نسخهٔ استقرار: {APP_VERSION}
