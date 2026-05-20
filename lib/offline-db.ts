@@ -45,7 +45,11 @@ export function isIndexedDBAvailable(): boolean {
 export async function addSession(
   data: Omit<GameSession, "id">
 ): Promise<number> {
-  return getDb().gameSession.add(data);
+  const id = await getDb().gameSession.add(data);
+  if (typeof id !== "number") {
+    throw new Error("ثبت نشست آفلاین ناموفق بود (id نامعتبر).");
+  }
+  return id;
 }
 
 export async function getAllSessions(): Promise<GameSession[]> {
