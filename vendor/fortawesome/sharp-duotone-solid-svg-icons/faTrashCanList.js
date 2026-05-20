@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'trash-can-list';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e2ab';
+var svgPathData = ['M32 96l0 416 352 0 0-416L32 96zm96 80l32 0 0 16 0 224 0 16-32 0 0-16 0-224 0-16zm128 0l32 0 0 16 0 224 0 16-32 0 0-16 0-224 0-16z', 'M128 0L288 0l16 32 112 0 0 64L0 96 0 32l112 0L128 0zM640 128l0 64-192 0 0-64 192 0zM608 256l0 64-160 0 0-64 160 0zM448 384l96 0 0 64-96 0 0-64z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faTrashCanList = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

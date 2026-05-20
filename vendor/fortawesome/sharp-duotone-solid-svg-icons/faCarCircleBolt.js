@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'car-circle-bolt';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e342';
+var svgPathData = ['M0 192L0 400l0 80 96 0 0-80 226.9 0c-1.9-10.4-2.9-21.1-2.9-32c0-97.2 78.8-176 176-176l-25.3 0L422.2 53.4 414.7 32 392 32 120 32 97.3 32 89.8 53.4 41.3 192 0 192zm128 96a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm-18.9-96l33.6-96 226.6 0 33.6 96-293.8 0zM496 192c5.4 0 10.7 .2 16 .7l0-.7-16 0z', 'M352 368a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm64 16l66.7 0L472 448l104-96-66.7 0L520 288 416 384z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faCarCircleBolt = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

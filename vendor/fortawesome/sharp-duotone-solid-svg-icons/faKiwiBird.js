@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'kiwi-bird';
+var width = 576;
+var height = 512;
+var aliases = [];
+var unicode = 'f535';
+var svgPathData = ['M96 390.3c14.9 8.6 31 15.3 48 19.6l0 46 0 24-48 0 0-24 0-65.7zm112 25c16.7-1.4 32.8-4.9 48-10.3l0 50.9 0 24-48 0 0-24 0-40.7zM464 352l112 0 0 128L464 352z', 'M192 416c56.9 0 108-24.7 143.1-64L576 352l0-128c0-70.7-57.3-128-128-128L335.1 96C300 56.7 248.9 32 192 32C86 32 0 118 0 224S86 416 192 416zM448 200a24 24 0 1 1 0 48 24 24 0 1 1 0-48z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faKiwiBird = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

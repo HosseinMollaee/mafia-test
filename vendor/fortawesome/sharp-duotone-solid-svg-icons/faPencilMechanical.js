@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'pencil-mechanical';
+var width = 512;
+var height = 512;
+var aliases = [];
+var unicode = 'e5ca';
+var svgPathData = ['M368 64L432 0l80 80-64 64c-6-6-12-12-17.9-17.9c-14.7-14.7-29.4-29.4-44.1-44.1C380 76 374 70 368 64z', 'M248 14.1l17 17 52 52 1.1-1.1L352 48l33.9 33.9 44.1 44.1L464 160l-33.9 33.9L176 448 64 480s0 0 0 0L32 512 0 480l32-32L64 336 283 117l-35-35L137 193l-17 17L86.1 176l17-17L231 31l17-17zM149.6 405.6l-43.2-43.2L89.1 422.9l60.5-17.3z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faPencilMechanical = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

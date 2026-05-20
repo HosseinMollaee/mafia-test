@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'keyboard-brightness';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e1c0';
+var svgPathData = ['M0 352l0 64 32 0 64 0 32 0 0-64-32 0-64 0L0 352zM66.7 176l22.6 22.6 64 64L176 285.3 221.3 240l-22.6-22.6-64-64L112 130.7 66.7 176zM288 64l0 32 0 96 0 32 64 0 0-32 0-96 0-32-64 0zM418.7 240L464 285.3l22.6-22.6 64-64L573.3 176 528 130.7l-22.6 22.6-64 64L418.7 240zM512 352l0 64 32 0 64 0 32 0 0-64-32 0-64 0-32 0z', 'M192 352l32 0 192 0 32 0 0 64-32 0-192 0-32 0 0-64z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faKeyboardBrightness = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

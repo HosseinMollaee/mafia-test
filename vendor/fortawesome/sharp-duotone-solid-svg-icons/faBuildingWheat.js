@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'building-wheat';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e4db';
+var svgPathData = ['M0 0L384 0l0 512-144 0 0-128-96 0 0 128L0 512 0 0zM64 96l0 64 64 0 0-64L64 96zm0 128l0 64 64 0 0-64-64 0zM160 96l0 64 64 0 0-64-64 0zm0 128l0 64 64 0 0-64-64 0zM256 96l0 64 64 0 0-64-64 0zm0 128l0 64 64 0 0-64-64 0z', 'M640 208l0-16-16 0c-44.2 0-80 35.8-80 80l0 16 16 0c44.2 0 80-35.8 80-80zm0 96l-16 0c-44.2 0-80 35.8-80 80l0 16 16 0c44.2 0 80-35.8 80-80l0-16zm0 112l-16 0c-44.2 0-80 35.8-80 80l0 16 16 0c44.2 0 80-35.8 80-80l0-16zM512 512l0-16c0-44.2-35.8-80-80-80l-16 0 0 16c0 44.2 35.8 80 80 80l16 0zm0-128c0-44.2-35.8-80-80-80l-16 0 0 16c0 44.2 35.8 80 80 80l16 0 0-16zm0-96l0-16c0-44.2-35.8-80-80-80l-16 0 0 16c0 44.2 35.8 80 80 80l16 0zM552 56l0-24-48 0 0 24 0 104 0 24 48 0 0-24 0-104zm72 16l-48 0 0 24 0 32 0 24 48 0 0-24 0-32 0-24zM480 96l0-24-48 0 0 24 0 32 0 24 48 0 0-24 0-32z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faBuildingWheat = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

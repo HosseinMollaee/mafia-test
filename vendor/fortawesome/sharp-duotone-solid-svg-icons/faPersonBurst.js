@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'person-burst';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e53b';
+var svgPathData = ['M4.4 215.2L100 236.6l-.4 98L176 273.2l76.4 61.4-.4-98 95.6-21.4-76.9-60.8 42.9-88.1L218.2 88.5 176 0 133.8 88.5 38.4 66.3l42.9 88.1L4.4 215.2z', 'M432 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm-20.6 80l17.5 0 102.2 0 17.5 0 9.4 14.8 81.7 128-53.9 34.4-33.8-53L552 480l0 32-64 0 0-32 0-128-16 0 0 128 0 32-64 0 0-32 0-227.8-33.8 53-53.9-34.4 81.7-128 9.4-14.8z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faPersonBurst = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'kiwi-fruit';
+var width = 448;
+var height = 512;
+var aliases = [];
+var unicode = 'e30c';
+var svgPathData = ['M0 176c0 79.5 100.3 144 224 144s224-64.5 224-144S347.7 32 224 32S0 96.5 0 176zm64-16l16 0 32 0 16 0 0 32-16 0-32 0-16 0 0-32zm41.4-56L128 81.4l11.3 11.3 16 16L166.6 120 144 142.6l-11.3-11.3-16-16L105.4 104zm0 144l11.3-11.3 16-16L144 209.4 166.6 232l-11.3 11.3-16 16L128 270.6 105.4 248zM168 176c0-13.3 25.1-24 56-24s56 10.7 56 24s-25.1 24-56 24s-56-10.7-56-24zM208 64l32 0 0 16 0 24 0 16-32 0 0-16 0-24 0-16zm0 168l32 0 0 16 0 24 0 16-32 0 0-16 0-24 0-16zm73.4-112l11.3-11.3 16-16L320 81.4 342.6 104l-11.3 11.3-16 16L304 142.6 281.4 120zm0 112L304 209.4l11.3 11.3 16 16L342.6 248 320 270.6l-11.3-11.3-16-16L281.4 232zM320 160l16 0 32 0 16 0 0 32-16 0-32 0-16 0 0-32z', 'M240 64l-32 0 0 16 0 24 0 16 32 0 0-16 0-24 0-16zM128 81.4L105.4 104l11.3 11.3 16 16L144 142.6 166.6 120l-11.3-11.3-16-16L128 81.4zM342.6 104L320 81.4 308.7 92.7l-16 16L281.4 120 304 142.6l11.3-11.3 16-16L342.6 104zM64 160l0 32 16 0 32 0 16 0 0-32-16 0-32 0-16 0zm256 0l0 32 16 0 32 0 16 0 0-32-16 0-32 0-16 0zM166.6 232L144 209.4l-11.3 11.3-16 16L105.4 248 128 270.6l11.3-11.3 16-16L166.6 232zM304 209.4L281.4 232l11.3 11.3 16 16L320 270.6 342.6 248l-11.3-11.3-16-16L304 209.4zM240 232l-32 0 0 16 0 24 0 16 32 0 0-16 0-24 0-16zM224 480c123.7 0 224-100.3 224-224l0-80c0 79.5-100.3 144-224 144S0 255.5 0 176l0 80C0 379.7 100.3 480 224 480z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faKiwiFruit = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

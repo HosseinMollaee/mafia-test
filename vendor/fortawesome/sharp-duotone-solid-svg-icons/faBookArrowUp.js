@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'book-arrow-up';
+var width = 448;
+var height = 512;
+var aliases = [];
+var unicode = 'e0ba';
+var svgPathData = ['M64 416c0 17.7 14.3 32 32 32l120 0 0-64L96 384c-17.7 0-32 14.3-32 32zm200-32l0 64 88 0 64 0 0-64-64 0-88 0z', 'M96 0C43 0 0 43 0 96L0 416c0 53 43 96 96 96l120 0 0-64L96 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l120 0 0-174.1-39 39-17 17L126.1 232l17-17 80-80 17-17 17 17 80 80 17 17L320 265.9l-17-17-39-39L264 384l88 0 64 0 32 0L448 0 416 0 384 0 96 0zM264 448l0 64 120 0 32 0 32 0 0-64-32 0-64 0-88 0z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faBookArrowUp = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

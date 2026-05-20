@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'pipe-valve';
+var width = 512;
+var height = 512;
+var aliases = [];
+var unicode = 'e439';
+var svgPathData = ['M64 192l0 256 384 0 0-256-160 0 0-76.8L256 112l-32 3.2 0 76.8L64 192zM224 64l0 12.8L256 80l32-3.2L288 64c0-17.7-14.3-32-32-32s-32 14.3-32 32z', 'M96 128l160-16 160 16 0-64L256 80 96 64l0 64zM64 160L0 160l0 32L0 448l0 32 64 0 0-32 0-256 0-32zm448 32l0-32-64 0 0 32 0 256 0 32 64 0 0-32 0-256z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faPipeValve = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'kitchen-set';
+var width = 576;
+var height = 512;
+var aliases = [];
+var unicode = 'e51a';
+var svgPathData = ['M0 480l0 32 224 0 0-32L0 480zM64 144a80 80 0 1 0 160 0A80 80 0 1 0 64 144zM256 272l0 48 32 0 224 0 32 0 0-48-120 0 0-32-48 0 0 32-120 0z', 'M224 144A80 80 0 1 0 64 144a80 80 0 1 0 160 0zm60.4 32C269.9 240.1 212.5 288 144 288C64.5 288 0 223.5 0 144S64.5 0 144 0c68.5 0 125.9 47.9 140.4 112l59.6 0 0-16 48 0 104 0 48 0 0 48 0 48-48 0-104 0-48 0 0-16-59.6 0zM128 320l32 0 16 0c26.5 0 48 21.5 48 48s-21.5 48-48 48l-16 0 0 32L32 448l0-128 96 0zm48 64c8.8 0 16-7.2 16-16s-7.2-16-16-16l-16 0 0 32 16 0zm336-64l0 192-224 0 0-192 224 0z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faKitchenSet = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

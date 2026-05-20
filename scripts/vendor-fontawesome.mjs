@@ -42,6 +42,11 @@ const PACKAGES = [
     dirName: "pro-light-svg-icons",
     version: FA_VERSION,
   },
+  {
+    npmName: "@fortawesome/sharp-duotone-solid-svg-icons",
+    dirName: "sharp-duotone-solid-svg-icons",
+    version: FA_VERSION,
+  },
 ];
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");

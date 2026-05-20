@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'computer-speaker';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'f8b2';
+var svgPathData = ['M0 32L0 96 0 320l0 64 64 0 224 0 0-64L64 320 64 96l224 0 0-64L64 32 0 32zM96 416l0 64 32 0 160 0 0-64-160 0-32 0zM320 32l0 32 0 16 0 352 0 16 0 32 32 0 16 0 272 0 0-448L368 32l-16 0-32 0zM576 320a96 96 0 1 1 -192 0 96 96 0 1 1 192 0zM512 128a32 32 0 1 1 -64 0 32 32 0 1 1 64 0z', 'M64 96l224 0 0 224L64 320 64 96zm384 32a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm80 192a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm-144 0a96 96 0 1 1 192 0 96 96 0 1 1 -192 0z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faComputerSpeaker = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

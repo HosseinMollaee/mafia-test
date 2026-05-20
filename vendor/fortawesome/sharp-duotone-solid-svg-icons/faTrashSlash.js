@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'trash-slash';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e2b3';
+var svgPathData = ['M96 32l128 0L240 0 400 0l16 32 128 0 0 64L153 96 96 51.8 96 32zm36.5 168.4L489.9 482 488 512l-336 0L132.5 200.4zM194.2 128L512 128 497.3 363.3C396.2 284.9 295.2 206.4 194.2 128z', 'M29.4 .1l19 14.7L620.9 459.3l19 14.7-29.4 37.9-19-14.7L19 52.7 0 38 29.4 .1z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faTrashSlash = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

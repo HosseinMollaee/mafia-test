@@ -11,6 +11,7 @@ const REQUIRED_DIRS = [
   "pro-solid-svg-icons",
   "pro-regular-svg-icons",
   "pro-light-svg-icons",
+  "sharp-duotone-solid-svg-icons",
 ];
 
 const missing = REQUIRED_DIRS.filter((dir) => {

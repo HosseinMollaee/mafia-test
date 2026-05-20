@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'raygun';
+var width = 576;
+var height = 512;
+var aliases = [];
+var unicode = 'e025';
+var svgPathData = ['M64 0l0 74.8C78.5 67.9 94.8 64 112 64l80 0L64 0zM288 32l0 24 0 8 0 192 0 32 0 8 0 24 48 0 0-24 0-240 0-24-48 0zm80 32l0 24 0 176 0 24 48 0 0-24 0-56 0-64 0-56 0-24-48 0z', 'M0 176C0 114.1 50.1 64 112 64l176 0 0 192 0 32L176 512 48 448l80-160-16 0C50.1 288 0 237.9 0 176zm416-32l64 0 96-48 0 160-96-48-64 0 0-64zM112 200a24 24 0 1 0 0-48 24 24 0 1 0 0 48zm120-24a24 24 0 1 0 -48 0 24 24 0 1 0 48 0z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faRaygun = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'hexagon-image';
+var width = 512;
+var height = 512;
+var aliases = [];
+var unicode = 'e504';
+var svgPathData = ['M0 256L128 480l256 0L512 256 384 32 128 32 0 256zm107.1 79.9c17.1-18.7 34.1-37.4 51.2-56.1c5.8-6.3 11.5-12.6 17.3-19c5.9 6.2 11.8 12.4 17.8 18.6c13 13.5 25.9 27.1 38.9 40.6l71.6-86.2c6.2-7.4 12.3-14.8 18.5-22.2c6.2 7.4 12.3 14.8 18.5 22.2l72.6 87.4L353.5 424.9l-195 0-51.4-89zM232 160a40 40 0 1 1 -80 0 40 40 0 1 1 80 0z', 'M107.1 335.9l51.4 89 195 0 59.9-103.7L322.3 211.6 232.2 320l-56.6-59.2-68.5 75z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faHexagonImage = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'chopsticks';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e3f7';
+var svgPathData = ['M0 491l24.6 19.4c90.6-102.9 181.1-205.7 271.7-308.5c-20.2-16.1-40.3-32.3-60.5-48.4C157.2 266 78.6 378.5 0 491zm129-2.8L149.4 512C257 429.4 364.7 346.8 472.3 264.3c-17.8-17.8-35.5-35.5-53.2-53.2c-96.7 92.4-193.4 184.8-290 277.2z', 'M296.3 201.9l-60.5-48.4L343.1 0l77.5 60.9-124.2 141zm175.9 62.4L419 211 576 61l64 74.6L472.3 264.3z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faChopsticks = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

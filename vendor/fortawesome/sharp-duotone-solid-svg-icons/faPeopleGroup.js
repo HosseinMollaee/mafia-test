@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'people-group';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e533';
+var svgPathData = ['M0 280L64 384l0 64 128 0 0-64 0-2.5-42-58.9L138 305.9l10.2-17.8 64-112C154.8 176 97.4 176 40 176L0 280zm53.3-4.9L64 247.3l0 45.1L53.3 275.1zM72 88a56 56 0 1 0 112 0A56 56 0 1 0 72 88zm355.7 88c21.4 37.5 42.7 74.8 64.1 112.1L502 305.9 490 322.6l-42 58.9 0 2.5 0 64 128 0 0-64 64-104L600 176l-172.3 0zM456 88a56 56 0 1 0 112 0A56 56 0 1 0 456 88zM576 247.3l10.7 27.8L576 292.4l0-45.1z', 'M384 96A64 64 0 1 0 256 96a64 64 0 1 0 128 0zM256 260.7l0 72.7-23.1-32.3L256 260.7zm128 72.7l0-72.7 23.1 40.4L384 333.4zm0 82.6l80-112L400 192l-160 0L176 304l80 112 0 64 128 0 0-64z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faPeopleGroup = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

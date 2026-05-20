@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'map-location';
+var width = 576;
+var height = 512;
+var aliases = ["map-marked"];
+var unicode = 'f59f';
+var svgPathData = ['M0 192l133-53.2c5.5 19.4 15.1 40.6 27 62.1L160 448 0 512 0 192zm192 60.3c44.5 65.3 96 121 96 121s51.4-55.7 96-121L384 512 192 448l0-195.7zm224-51.5c2.1-3.8 4.1-7.5 6-11.3L576 128l0 320L416 512l0-311.1z', 'M408 120c0 70-120 200-120 200s-120-130-120-200C168 53.7 221.7 0 288 0s120 53.7 120 120z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faMapLocation = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

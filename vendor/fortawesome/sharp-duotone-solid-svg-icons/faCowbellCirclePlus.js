@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'cowbell-circle-plus';
+var width = 576;
+var height = 512;
+var aliases = ["cowbell-more"];
+var unicode = 'f8b4';
+var svgPathData = ['M0 416l262.6 0c-4.3-15.3-6.6-31.4-6.6-48c0-87.6 63.9-160.2 147.7-173.7L384 96l-64 0 0-72 0-24L296 0 152 0 128 0l0 24 0 72L64 96 0 416zm160 32c0 35.3 28.7 64 64 64c29.2 0 53.9-19.6 61.5-46.4c-3.8-5.7-7.2-11.5-10.3-17.6L160 448zM176 48l96 0 0 48-96 0 0-48z', 'M288 368a144 144 0 1 1 288 0 144 144 0 1 1 -288 0zm160-80l-32 0 0 16 0 48-48 0-16 0 0 32 16 0 48 0 0 48 0 16 32 0 0-16 0-48 48 0 16 0 0-32-16 0-48 0 0-48 0-16z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faCowbellCirclePlus = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

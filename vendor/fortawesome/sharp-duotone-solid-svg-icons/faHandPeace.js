@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'hand-peace';
+var width = 512;
+var height = 512;
+var aliases = [9996];
+var unicode = 'f25b';
+var svgPathData = ['M30 66.1L42.8 95.4 106.1 240l69.9 0L101.5 69.8 88.6 40.5 30 66.1zM64 272l0 91c0 33.9 13.5 66.5 37.5 90.5l11.6 11.6c30 30 70.7 46.9 113.1 46.9l61.7 0c88.4 0 160-71.6 160-160l-96 0 0-32-64 0 0 48 0 16-16 0-112 0-16 0 0-32 16 0 96 0 0-32 0-48-66.1 0-69.9 0L64 272zM192 0l0 240 64 0L256 0 192 0z', 'M352 160l-64 0 0 128 64 0 0-128zm96 32l-64 0 0 128 64 0 0-128z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faHandPeace = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

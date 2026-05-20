@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'mobile-signal-out';
+var width = 512;
+var height = 512;
+var aliases = [];
+var unicode = 'e1f0';
+var svgPathData = ['M0 0L0 64 0 448l0 64 64 0 224 0 64 0 0-64 0-160-64 0 0 160L64 448 64 64l160 0 0-64L64 0 0 0zM128 384l0 32 16 0 64 0 16 0 0-32-16 0-64 0-16 0z', 'M464 256c0-114.9-93.1-208-208-208l0-48C397.4 0 512 114.6 512 256l-48 0zM256 224a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm0-80l0-48c88.4 0 160 71.6 160 160l-48 0c0-61.9-50.1-112-112-112z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faMobileSignalOut = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

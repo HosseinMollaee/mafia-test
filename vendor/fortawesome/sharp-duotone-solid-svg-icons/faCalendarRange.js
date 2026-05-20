@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'calendar-range';
+var width = 448;
+var height = 512;
+var aliases = [];
+var unicode = 'e0d6';
+var svgPathData = ['M0 192l448 0 0 320L0 512 0 192zm64 64l0 64 64 0 0-64-64 0zm0 136l0 48 192 0 0-48L64 392zM192 264l0 48 192 0 0-48-192 0zM320 384l0 64 64 0 0-64-64 0z', 'M96 0l64 0 0 64 128 0 0-64 64 0 0 64 96 0 0 128L0 192 0 64l96 0L96 0zm32 256l0 64-64 0 0-64 64 0zM320 448l0-64 64 0 0 64-64 0zm64-184l0 48-192 0 0-48 192 0zM64 392l192 0 0 48L64 440l0-48z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faCalendarRange = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

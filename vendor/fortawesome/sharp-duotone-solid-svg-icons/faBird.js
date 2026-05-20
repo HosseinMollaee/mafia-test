@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'bird';
+var width = 512;
+var height = 512;
+var aliases = [];
+var unicode = 'e469';
+var svgPathData = ['M162.1 407.4c18.7 5.4 38.5 8.4 58.9 8.6l50.2 94.8 .7 1.2-54.3 0L162.1 407.4zm99 5.6c16.4-2.7 32.2-7.3 47.2-13.4l58.9 111.2 .7 1.2-54.3 0-52.4-99.1zm186.3-328L512 128l-64 42.7L448 96c0-3.8-.2-7.4-.6-11.1z', 'M0 160l0 32C0 315.7 100.3 416 224 416s224-100.3 224-224l0-96c0-53-43-96-96-96s-96 43-96 96l0 64L0 160zM352 96a24 24 0 1 1 0 48 24 24 0 1 1 0-48z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faBird = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

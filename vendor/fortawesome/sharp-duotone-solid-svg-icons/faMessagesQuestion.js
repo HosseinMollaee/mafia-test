@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'messages-question';
+var width = 640;
+var height = 512;
+var aliases = [];
+var unicode = 'e1e7';
+var svgPathData = ['M0 0L0 320l96 0 0 64 106.7-64L416 320 416 0 0 0zM134.7 108c0-25.8 20.9-46.7 46.7-46.7l47.4 0c29.1 0 52.6 23.6 52.6 52.6c0 18.8-10.1 36.3-26.4 45.6L228 175l0 6.3 0 20-40 0 0-20 0-17.9 0-11.6 10-5.8L235 124.9c3.9-2.3 6.3-6.4 6.3-10.9c0-7-5.7-12.6-12.6-12.6l-47.4 0c-3.7 0-6.7 3-6.7 6.7l0 5.5-40 0 0-5.5zM188 234.7l40 0 0 40-40 0 0-40z', 'M134.7 108c0-25.8 20.9-46.7 46.7-46.7l47.4 0c29.1 0 52.6 23.6 52.6 52.6c0 18.8-10.1 36.3-26.4 45.6L228 175l0 6.3 0 20-40 0 0-20 0-17.9 0-11.6 10-5.8L235 124.9c3.9-2.3 6.3-6.4 6.3-10.9c0-7-5.7-12.6-12.6-12.6l-47.4 0c-3.7 0-6.7 3-6.7 6.7l0 5.5-40 0 0-5.5zM188 234.7l40 0 0 40-40 0 0-40zM256 448l0-96 192 0 0-224 192 0 0 320-96 0 0 64L437.3 448 256 448z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faMessagesQuestion = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

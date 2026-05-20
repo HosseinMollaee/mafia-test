@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'train-tram';
+var width = 448;
+var height = 512;
+var aliases = [128650];
+var unicode = 'e5b4';
+var svgPathData = ['M8.6 45.6L39.4 82.4 80.7 48 200 48l0 48 48 0 0-48 119.3 0 41.3 34.4 30.7-36.9-48-40L384.7 0 376 0 72 0 63.3 0 56.6 5.6l-48 40zM40 512l80 0 64-64-80 0L40 512zm88-352c0 32 0 64 0 96l192 0c0-32 0-64 0-96l-192 0zM264 448l64 64 80 0-64-64-80 0z', 'M384 96L64 96l0 352 320 0 0-352zm-64 64l0 96-192 0 0-96 192 0zM128 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm160-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faTrainTram = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

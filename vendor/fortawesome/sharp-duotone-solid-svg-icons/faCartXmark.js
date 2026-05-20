@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'cart-xmark';
+var width = 576;
+var height = 512;
+var aliases = [];
+var unicode = 'e0dd';
+var svgPathData = ['M122 32l48.8 256L496 288 576 32 122 32zm143.3 85.6l28.3-28.3L336 131.7l42.4-42.4 28.3 28.3L364.3 160l42.4 42.4-28.3 28.3L336 188.3l-42.4 42.4-28.3-28.3L307.7 160l-42.4-42.4z', 'M24 0L0 0 0 48l24 0 52.1 0 60.3 316.5 3.7 19.5 19.9 0 328 0 24 0 0-48-24 0-308.1 0L119.6 19.5 115.9 0 96 0 24 0zM176 512a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm336-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM378.4 89.3L336 131.7 293.6 89.3l-28.3 28.3L307.7 160l-42.4 42.4 28.3 28.3L336 188.3l42.4 42.4 28.3-28.3L364.3 160l42.4-42.4L378.4 89.3z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faCartXmark = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

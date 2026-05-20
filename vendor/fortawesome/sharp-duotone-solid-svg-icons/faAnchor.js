@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'anchor';
+var width = 576;
+var height = 512;
+var aliases = [9875];
+var unicode = 'f13d';
+var svgPathData = ['M192 96c0 33.4 17 62.8 42.9 80L224 176l-32 0 0 64 32 0 32 0 64 0 32 0 32 0 0-64-32 0-10.9 0C367 158.8 384 129.4 384 96c0-53-43-96-96-96s-96 43-96 96zm128 0a32 32 0 1 1 -64 0 32 32 0 1 1 64 0z', 'M256 448l0-208 64 0 0 208 128 0 0-96-64 0 96-96 96 96-64 0 0 128 0 32-32 0-192 0L96 512l-32 0 0-32 0-128L0 352l96-96 96 96-64 0 0 96 128 0z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faAnchor = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;

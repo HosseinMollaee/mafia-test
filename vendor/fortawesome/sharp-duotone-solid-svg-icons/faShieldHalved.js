@@ -1,0 +1,30 @@
+'use strict';
+Object.defineProperty(exports, '__esModule', { value: true });
+var prefix = 'fasds';
+var iconName = 'shield-halved';
+var width = 512;
+var height = 512;
+var aliases = ["shield-alt"];
+var unicode = 'f3ed';
+var svgPathData = ['M256.7 0c3.9 1.5 7.7 3 11.6 4.5L475.8 85 495 92.5l1.2 20.5c.4 6.3 .6 13 .6 20.1c0 49.1-9.5 115.6-37.9 180.8c-32.7 75.3-91 150-189.4 192.6c-4.2 1.8-8.5 3.7-12.7 5.5l0-512z', 'M256 0s0 0 0 0L244.4 4.5 36.9 85 17.8 92.5 16.6 113c-2.9 49.9 4.9 126.3 37.3 200.9c32.7 75.3 91 150 189.4 192.6L256 512s0 0 0 0L256 0z'];
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faShieldHalved = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;
