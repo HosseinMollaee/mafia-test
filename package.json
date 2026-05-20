@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "prebuild": "node scripts/check-fontawesome-vendor.mjs",
+    "prebuild": "node scripts/test-fontawesome-reach.mjs && node scripts/check-fontawesome-vendor.mjs",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
