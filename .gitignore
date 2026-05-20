@@ -34,8 +34,10 @@ yarn-error.log*
 .env
 .env*.local
 
-# npm — local .npmrc may contain a hardcoded Font Awesome token (use .npmrc.example)
-.npmrc
+# npm — do NOT commit tokens; keep local overrides separate.
+# We commit a safe `.npmrc` for ParsPack builds (cache/prefix in /tmp).
+.npmrc.local
+.npmrc.*.local
 
 # temp folder while running scripts/vendor-fontawesome.mjs
 .tmp-fontawesome-vendor/
