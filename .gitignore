@@ -37,6 +37,9 @@ yarn-error.log*
 # npm — local .npmrc may contain a hardcoded Font Awesome token (use .npmrc.example)
 .npmrc
 
+# temp folder while running scripts/vendor-fontawesome.mjs
+.tmp-fontawesome-vendor/
+
 # vercel
 .vercel
 

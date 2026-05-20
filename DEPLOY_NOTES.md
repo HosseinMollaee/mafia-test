@@ -151,3 +151,24 @@ No pending migrations to apply.
 2. `/prisma-test` — باید سبز باشد، رکورد جدید بسازد و لیست `TestConnection` را نشان دهد.
 
 اگر `/db-test` سبز و `/prisma-test` قرمز است، تقریباً همیشه مشکل از `DATABASE_URL` (فرمت یا encode رمز) است، نه از دیتابیس خام.
+
+---
+
+## ۶. Font Awesome Pro (Next.js پارس‌پک)
+
+سرور build پارس‌پک به `npm.fontawesome.com` دسترسی ندارد. پکیج‌های Pro در `vendor/fortawesome/` commit می‌شوند.
+
+**یک‌بار لوکال:**
+
+```powershell
+$env:FONTAWESOME_TOKEN = "توکن-npm"
+node scripts/vendor-fontawesome.mjs
+npm install
+git add vendor/fortawesome package.json package-lock.json
+git commit -m "chore: vendor Font Awesome Pro"
+git push
+```
+
+بعد از push، deploy جدید بزنید. در پنل پارس‌پک **نیازی به `FONTAWESOME_TOKEN` نیست**.
+
+جزئیات: `vendor/fortawesome/README.md`

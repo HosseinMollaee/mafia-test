@@ -7,19 +7,23 @@ RUN apk add --no-cache libc6-compat openssl
 FROM base AS deps
 WORKDIR /app
 
-# Font Awesome Pro — token only for this build stage (not copied to runner)
+# Font Awesome Pro: prefer vendor/fortawesome/ in repo (no npm.fontawesome.com).
+# Optional FONTAWESOME_TOKEN only if vendor/ is missing.
 ARG FONTAWESOME_TOKEN
 ENV FONTAWESOME_TOKEN=${FONTAWESOME_TOKEN}
 
 COPY package.json package-lock.json* ./
 COPY prisma ./prisma
-COPY .npmrc.example .npmrc
-RUN if [ -z "$FONTAWESOME_TOKEN" ]; then \
-      echo "ERROR: FONTAWESOME_TOKEN is not set. Add it as a ParsPack build variable." >&2; \
+COPY vendor ./vendor
+RUN if [ -f vendor/fortawesome/fontawesome-svg-core/package.json ]; then \
+      echo "Using vendored Font Awesome Pro"; \
+      npm ci; \
+    elif [ -n "$FONTAWESOME_TOKEN" ]; then \
+      cp .npmrc.example .npmrc && npm ci && rm -f .npmrc; \
+    else \
+      echo "ERROR: vendor/fortawesome/ missing. Run: node scripts/vendor-fontawesome.mjs" >&2; \
       exit 1; \
     fi
-RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
-RUN rm -f .npmrc
 
 # Rebuild the source code only when needed
 FROM base AS builder

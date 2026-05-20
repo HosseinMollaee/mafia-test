@@ -4,15 +4,24 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "node scripts/check-fontawesome-vendor.mjs",
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
-    "db:migrate:deploy": "prisma migrate deploy"
+    "db:migrate:deploy": "prisma migrate deploy",
+    "vendor:fontawesome": "node scripts/vendor-fontawesome.mjs",
+    "check:fontawesome-vendor": "node scripts/check-fontawesome-vendor.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1048.0",
     "@aws-sdk/s3-request-presigner": "^3.1048.0",
+    "@fortawesome/fontawesome-svg-core": "file:vendor/fortawesome/fontawesome-svg-core",
+    "@fortawesome/pro-light-svg-icons": "file:vendor/fortawesome/pro-light-svg-icons",
+    "@fortawesome/pro-regular-svg-icons": "file:vendor/fortawesome/pro-regular-svg-icons",
+    "@fortawesome/pro-solid-svg-icons": "file:vendor/fortawesome/pro-solid-svg-icons",
+    "@fortawesome/react-fontawesome": "file:vendor/fortawesome/react-fontawesome",
     "@prisma/client": "^6.8.2",
+    "prisma": "^6.8.2",
     "dexie": "^4.0.11",
     "dexie-react-hooks": "^1.1.7",
     "next": "^15.3.2",
@@ -31,7 +40,6 @@
     "eslint": "^9.26.0",
     "eslint-config-next": "^15.3.2",
     "postcss": "^8.5.3",
-    "prisma": "^6.8.2",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3"
   }

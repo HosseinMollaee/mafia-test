@@ -14,6 +14,24 @@ npx create-next-app@15 . --typescript --eslint --tailwind --no-src-dir --app --t
 
 - Node.js 20 یا جدیدتر
 - npm (یا pnpm / yarn)
+- **Font Awesome Pro:** پوشهٔ `vendor/fortawesome/` باید در ریپو باشد (یک‌بار با اسکریپت زیر ساخته و commit می‌شود)
+
+## Font Awesome Pro (استقرار پارس‌پک / Next.js)
+
+سرور build پارس‌پک معمولاً به `npm.fontawesome.com` دسترسی ندارد. پکیج‌های Pro داخل ریپو **vendor** می‌شوند تا `npm install` فقط از فایل‌های محلی استفاده کند.
+
+**یک‌بار روی لپ‌تاپ** (با اینترنت و لایسنس Pro):
+
+```powershell
+$env:FONTAWESOME_TOKEN = "توکن-npm-از-fontawesome.com/account"
+node scripts/vendor-fontawesome.mjs
+npm install
+git add vendor/fortawesome package.json package-lock.json
+git commit -m "chore: vendor Font Awesome Pro"
+git push
+```
+
+جزئیات: [`vendor/fortawesome/README.md`](vendor/fortawesome/README.md). روی پارس‌پک **نیازی به `FONTAWESOME_TOKEN` در پنل نیست**.
 
 ## نصب و اجرا
 
@@ -32,6 +50,16 @@ npm run dev
 | `npm run build` | ساخت نسخه production |
 | `npm run start` | اجرای سرور production (بعد از build) |
 | `npm run lint` | اجرای ESLint |
+| `npm run vendor:fontawesome` | دانلود Pro به `vendor/fortawesome/` (فقط لوکال) |
+| `npm run check:fontawesome-vendor` | بررسی وجود vendor قبل از build |
+
+## استقرار Next.js روی پارس‌پک
+
+1. نوع اپ: **Next.js** (طبق پنل شما).
+2. `package.json` و `package-lock.json` در روت `context_dir` باشند.
+3. پوشهٔ `vendor/fortawesome/` حتماً push شده باشد.
+4. `prisma` در `dependencies` است تا `prisma generate` در `npm run build` روی پارس‌پک کار کند.
+5. پورت اپ: **3000** (یا مطابق `PORT` در کد).
 
 ## راست‌چین (RTL) و فارسی
 
